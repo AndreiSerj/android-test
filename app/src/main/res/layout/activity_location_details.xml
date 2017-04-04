@@ -5,22 +5,48 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/textName"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/title"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/name"/>
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/title"
+        android:layout_marginTop="20dp"
+        android:text="@string/location"/>
 
     <TextView
         android:id="@+id/textLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
         android:ellipsize="end"
         android:lines="1"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="@dimen/description"
-        android:layout_marginTop="20dp"/>
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/title"
+        android:layout_marginTop="60dp"
+        android:text="@string/description"/>
 
     <EditText
         android:id="@+id/textDescription"
@@ -28,13 +54,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/buttonOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_submit"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
