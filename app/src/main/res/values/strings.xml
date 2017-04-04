@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Locations</string>
+
+    <string name="new_location_name">New location name</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_submit">Submit</string>
+
+    <string name="tab_List">List</string>
+    <string name="tab_Map">Map</string>
+</resources>
