@@ -1,6 +1,7 @@
 1. The app based on MVP pattern (Mosby)
 2. The app uses Realm.io as a persistence layer
-3. List of locations is sorted by distance.
+3. List of locations is sorted by distance (relativly to Sydney)
+4. Map: Default markers are RED, custom are BLUE.
 
 How to:
 1. On the very first start a splash screen appears and the app reads the locations.json, parses it and populates the realm-based storage with the default locations.

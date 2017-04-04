@@ -30,17 +30,11 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
     public RealmResults<Location> getLocations() {
         RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
 
-        // set up a Realm change listener
         mRealmChangeListener = (RealmChangeListener<RealmResults<Location>>) results -> {
-            // This is called anytime the Realm database changes on any thread.
-            // Please note, change listeners only work on Looper threads.
-            // For non-looper threads, you manually have to use Realm.waitForChange() instead.
             if (isViewAttached() && getView() != null) { // Update the UI
                 getView().showContent();
             }
         };
-        // Tell Realm to notify our listener when the customers results
-        // have changed (items added, removed, updated, anything of the sort).
         locations.addChangeListener(mRealmChangeListener);
         return locations;
     }

@@ -4,12 +4,13 @@
     <string name="new_location_name">New location name</string>
     <string name="description">Description:</string>
     <string name="name">Name:</string>
-    <string name="location">Location:</string>
+    <string name="distance">Distance:</string>
 
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_submit">Submit</string>
 
+    <string name="distance_m">%(.2f m</string>
     <string name="tab_List">List</string>
     <string name="tab_Map">Map</string>
 </resources>

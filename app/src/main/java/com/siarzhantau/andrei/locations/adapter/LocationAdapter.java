@@ -40,7 +40,7 @@ public class LocationAdapter extends RealmRecyclerViewAdapter<Location, Location
 
         holder.mTitle.setText(location.name);
         if (TextUtils.isEmpty(location.description)) {
-            holder.mDescription.setText("Location: " + location.lng + " " + location.lat);
+            holder.mDescription.setText(String.format(context.getString(R.string.distance_m), location.distance));
         } else {
             holder.mDescription.setText(location.description);
         }

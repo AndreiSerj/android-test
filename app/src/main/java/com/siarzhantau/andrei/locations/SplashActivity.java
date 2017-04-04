@@ -1,6 +1,5 @@
 package com.siarzhantau.andrei.locations;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +12,6 @@ import com.siarzhantau.andrei.locations.mvp.SplashView;
 public class SplashActivity extends MvpActivity<SplashView, SplashPresenter>
         implements SplashView  {
 
-    @SuppressLint("ApplySharedPref")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -2,7 +2,6 @@ package com.siarzhantau.andrei.locations;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,9 +16,8 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
     public static String LOCATION_ID_ATTR = "locationId";
 
     private TextView mTextName;
-    private TextView mTextLocation;
+    private TextView mTextDistance;
     private EditText mTextDescription;
-    private Button mButtonSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +27,9 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
         final String locationId = getIntent().getStringExtra(LOCATION_ID_ATTR);
 
         mTextName = (TextView) findViewById(R.id.textName);
-        mTextLocation = (TextView) findViewById(R.id.textLocation);
+        mTextDistance = (TextView) findViewById(R.id.textDistance);
         mTextDescription = (EditText) findViewById(R.id.textDescription);
-        mButtonSubmit = (Button) findViewById(R.id.buttonOk);
-        mButtonSubmit.setOnClickListener(view -> {
+        findViewById(R.id.buttonOk).setOnClickListener(view -> {
             presenter.updateLocationDescription(locationId, mTextDescription.getText().toString());
             finish();
         });
@@ -43,7 +40,7 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
 
     private void updateContent(Location location) {
         mTextName.setText(location.name);
-        mTextLocation.setText(location.lat + " " + location.lng);
+        mTextDistance.setText(String.format(getString(R.string.distance_m), location.distance));
         mTextDescription.setText(location.description);
     }
 

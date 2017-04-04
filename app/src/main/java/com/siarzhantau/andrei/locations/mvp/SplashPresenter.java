@@ -1,5 +1,6 @@
 package com.siarzhantau.andrei.locations.mvp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import io.realm.Realm;
 
 public class SplashPresenter extends MvpBasePresenter<SplashView> {
 
+    @SuppressLint("ApplySharedPref")
     public void checkFirstRun(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("com.siarzhantau.andrei.locations", Context.MODE_PRIVATE);
 
@@ -62,6 +64,8 @@ public class SplashPresenter extends MvpBasePresenter<SplashView> {
                     location.id = UUID.randomUUID().toString();
                     location.distance = LocationsUtil.calculateDistance(
                             location.name, location.lat, location.lng);
+                    location.custom = false;
+
                     r.copyToRealm(location);
                 });
             }

@@ -51,6 +51,7 @@ public class LocationsMapPresenter extends MvpBasePresenter<LocationsMapView> {
             location.name = name;
             location.lat = point.latitude;
             location.lng = point.longitude;
+            location.custom = true;
             location.distance = LocationsUtil.calculateDistance(
                     location.name, location.lat, location.lng);
         });

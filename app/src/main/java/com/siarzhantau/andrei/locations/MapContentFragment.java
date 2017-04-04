@@ -62,7 +62,8 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.setOnMapLongClickListener(this);
         mGoogleMap.animateCamera(LocationsUtil.getCameraUpdate());
-        mGoogleMap.setOnInfoWindowClickListener(marker -> getActivity().startActivity(new Intent(getActivity(),
+        mGoogleMap.setOnInfoWindowClickListener(marker ->
+                getActivity().startActivity(new Intent(getActivity(),
                 LocationDetailsActivity.class).putExtra(LocationDetailsActivity.LOCATION_ID_ATTR, mMarkers.get(marker.getId()))));
 
         mMarkers.clear();
@@ -132,7 +133,7 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
             Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(point)
                     .title(name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
             mMarkers.put(marker.getId(), id);
 
@@ -148,7 +149,8 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
             Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.lat, location.lng))
                     .title(location.name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    .icon(BitmapDescriptorFactory.defaultMarker(location.custom
+                           ? BitmapDescriptorFactory.HUE_BLUE : BitmapDescriptorFactory.HUE_RED)));
             mMarkers.put(marker.getId(), location.id);
         }
     }

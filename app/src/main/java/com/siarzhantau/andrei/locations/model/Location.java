@@ -21,5 +21,6 @@ public class Location extends RealmObject {
     public String id;
     public String description;
     public float distance;
+    public boolean custom;
 
 }
