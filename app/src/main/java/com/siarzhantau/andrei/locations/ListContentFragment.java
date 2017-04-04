@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +47,6 @@ public class ListContentFragment extends MvpLceFragment<SwipeRefreshLayout, Real
         contentView.setOnRefreshListener(this);
 
         mLocationAdapter = new LocationAdapter(getContext(), presenter.getLocations(), mLocationClicklistener);
-
-        final List<Location> locations = presenter.getLocations();
-        Log.d("AAAA", "list: " + locations.size());
 
         mRecyclerView.setAdapter(mLocationAdapter);
         mRecyclerView.setHasFixedSize(true);

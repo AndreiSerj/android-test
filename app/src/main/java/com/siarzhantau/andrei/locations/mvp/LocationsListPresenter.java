@@ -12,6 +12,7 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
 
     private Realm mRealm;
     private RealmChangeListener mRealmChangeListener;
+    private static final String SORT_BY_DISTANCE = "distance";
 
     @Override
     public void attachView(LocationsListView view) {
@@ -27,7 +28,7 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
     }
 
     public RealmResults<Location> getLocations() {
-        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted("distance", Sort.ASCENDING);
+        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
 
         // set up a Realm change listener
         mRealmChangeListener = (RealmChangeListener<RealmResults<Location>>) results -> {
@@ -49,7 +50,7 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
             getView().showLoading(pullToRefresh);
         }
 
-        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted("distance", Sort.ASCENDING);
+        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
 
         if (isViewAttached() && getView() != null) { // Update the UI
             getView().setData(locations);

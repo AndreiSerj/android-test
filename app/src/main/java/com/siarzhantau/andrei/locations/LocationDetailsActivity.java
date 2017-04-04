@@ -16,10 +16,10 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
 
     public static String LOCATION_ID_ATTR = "locationId";
 
-    TextView mTextName;
-    TextView mTextLocation;
-    EditText mTextDescription;
-    Button mButtonSubmit;
+    private TextView mTextName;
+    private TextView mTextLocation;
+    private EditText mTextDescription;
+    private Button mButtonSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,10 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
         });
 
         final Location location = presenter.getLocationById(locationId);
+        updateContent(location);
+    }
+
+    private void updateContent(Location location) {
         mTextName.setText(location.name);
         mTextLocation.setText(location.lat + " " + location.lng);
         mTextDescription.setText(location.description);

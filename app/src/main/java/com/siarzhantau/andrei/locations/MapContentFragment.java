@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,6 +26,7 @@ import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.siarzhantau.andrei.locations.model.Location;
 import com.siarzhantau.andrei.locations.mvp.LocationsMapPresenter;
 import com.siarzhantau.andrei.locations.mvp.LocationsMapView;
+import com.siarzhantau.andrei.locations.utils.LocationsUtil;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -62,7 +61,7 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         mGoogleMap = googleMap;
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.setOnMapLongClickListener(this);
-        mGoogleMap.animateCamera(getCameraUpdateForSydney());
+        mGoogleMap.animateCamera(LocationsUtil.getCameraUpdate());
         mGoogleMap.setOnInfoWindowClickListener(marker -> getActivity().startActivity(new Intent(getActivity(),
                 LocationDetailsActivity.class).putExtra(LocationDetailsActivity.LOCATION_ID_ATTR, mMarkers.get(marker.getId()))));
 
@@ -118,11 +117,6 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         mMapView.onLowMemory();
     }
 
-    private CameraUpdate getCameraUpdateForSydney() {
-        LatLng sydney = new LatLng(-33.88, 151.21);
-        return CameraUpdateFactory.newLatLngZoom(sydney, 11);
-    }
-
     private void showAddNewLocationDialog(Context context, final LatLng point) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.new_location_name);
@@ -147,13 +141,6 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         });
         builder.setNegativeButton(R.string.button_cancel, (dialog, which) -> dialog.dismiss());
         builder.show();
-    }
-
-    private MarkerOptions createMarker(final LatLng point, String name) {
-        return new MarkerOptions()
-                .position(point)
-                .title(name)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
     }
 
     private void updateMarkers(RealmResults<Location> locations) {
