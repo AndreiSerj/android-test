@@ -19,6 +19,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
@@ -28,6 +29,7 @@ import com.siarzhantau.andrei.locations.model.Location;
 import com.siarzhantau.andrei.locations.mvp.LocationsMapPresenter;
 import com.siarzhantau.andrei.locations.mvp.LocationsMapView;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import io.realm.RealmResults;
@@ -37,6 +39,7 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
 
     private MapView mMapView;
     private GoogleMap mGoogleMap;
+    private HashMap<String, String> mMarkers = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,12 +63,10 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.setOnMapLongClickListener(this);
         mGoogleMap.animateCamera(getCameraUpdateForSydney());
-        mGoogleMap.setOnMarkerClickListener(marker -> {
-            getActivity().startActivity(new Intent(getActivity(),
-                    LocationDetailsActivity.class).putExtra(LocationDetailsActivity.LOCATION_ID_ATTR, marker.getSnippet()));
-            return true;
-        });
+        mGoogleMap.setOnInfoWindowClickListener(marker -> getActivity().startActivity(new Intent(getActivity(),
+                LocationDetailsActivity.class).putExtra(LocationDetailsActivity.LOCATION_ID_ATTR, mMarkers.get(marker.getId()))));
 
+        mMarkers.clear();
         updateMarkers(presenter.getLocations());
     }
 
@@ -78,6 +79,7 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
     @Override
     public void showContent(RealmResults<Location> locations) {
         mGoogleMap.clear();
+        mMarkers.clear();
         updateMarkers(locations);
     }
 
@@ -133,11 +135,12 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
             final String name = input.getText().toString();
             final String id = UUID.randomUUID().toString();
 
-            mGoogleMap.addMarker(new MarkerOptions()
+            Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(point)
                     .title(name)
-                    .snippet(id)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+            mMarkers.put(marker.getId(), id);
 
             presenter.createNewLocation(point, name, id);
             dialog.dismiss();
@@ -146,13 +149,20 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         builder.show();
     }
 
+    private MarkerOptions createMarker(final LatLng point, String name) {
+        return new MarkerOptions()
+                .position(point)
+                .title(name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+    }
+
     private void updateMarkers(RealmResults<Location> locations) {
         for (Location location : locations) {
-            mGoogleMap.addMarker(new MarkerOptions()
+            Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.lat, location.lng))
                     .title(location.name)
-                    .snippet(location.id)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            mMarkers.put(marker.getId(), location.id);
         }
     }
 }

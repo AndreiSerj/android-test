@@ -2,7 +2,6 @@ package com.siarzhantau.andrei.locations;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,10 +25,6 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_details);
-
-        // Adding Toolbar to Main screen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         final String locationId = getIntent().getStringExtra(LOCATION_ID_ATTR);
 
