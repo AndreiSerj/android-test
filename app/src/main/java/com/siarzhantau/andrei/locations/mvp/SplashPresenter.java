@@ -17,7 +17,7 @@ import io.realm.Realm;
 public class SplashPresenter extends MvpBasePresenter<SplashView> {
 
     @SuppressLint("ApplySharedPref")
-    public void checkFirstRun(Context context) {
+    public void populateRealmOnFirstRun(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("com.siarzhantau.andrei.locations", Context.MODE_PRIVATE);
 
         if (prefs.getBoolean("firstRun", true)) {

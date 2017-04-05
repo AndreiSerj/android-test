@@ -17,7 +17,7 @@ public class SplashActivity extends MvpActivity<SplashView, SplashPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        presenter.checkFirstRun(getApplicationContext());
+        presenter.populateRealmOnFirstRun(getApplicationContext());
     }
 
     @NonNull

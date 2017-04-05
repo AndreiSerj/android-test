@@ -28,7 +28,7 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
     }
 
     public RealmResults<Location> getLocations() {
-        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
+        RealmResults<Location> locations = findAllLocations();
 
         mRealmChangeListener = (RealmChangeListener<RealmResults<Location>>) results -> {
             if (isViewAttached() && getView() != null) { // Update the UI
@@ -44,12 +44,13 @@ public class LocationsListPresenter extends MvpBasePresenter<LocationsListView> 
             getView().showLoading(pullToRefresh);
         }
 
-        RealmResults<Location> locations = mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
-
         if (isViewAttached() && getView() != null) { // Update the UI
-            getView().setData(locations);
+            getView().setData(findAllLocations());
             getView().showContent();
         }
     }
 
+    private RealmResults<Location> findAllLocations() {
+        return mRealm.where(Location.class).findAllSorted(SORT_BY_DISTANCE, Sort.ASCENDING);
+    }
 }
