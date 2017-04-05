@@ -17,8 +17,6 @@ import com.siarzhantau.andrei.locations.model.Location;
 import com.siarzhantau.andrei.locations.mvp.LocationsListPresenter;
 import com.siarzhantau.andrei.locations.mvp.LocationsListView;
 
-import java.util.List;
-
 import io.realm.RealmResults;
 
 /**
@@ -46,7 +44,7 @@ public class ListContentFragment extends MvpLceFragment<SwipeRefreshLayout, Real
         // Setup contentView == SwipeRefreshView
         contentView.setOnRefreshListener(this);
 
-        mLocationAdapter = new LocationAdapter(getContext(), presenter.getLocations(), mLocationClicklistener);
+        mLocationAdapter = new LocationAdapter(getContext(), presenter.getLocations(), mLocationClickListener);
 
         mRecyclerView.setAdapter(mLocationAdapter);
         mRecyclerView.setHasFixedSize(true);
@@ -74,7 +72,7 @@ public class ListContentFragment extends MvpLceFragment<SwipeRefreshLayout, Real
 
     @Override
     public void setData(RealmResults<Location> data) {
-        mLocationAdapter = new LocationAdapter(getContext(), data, mLocationClicklistener);
+        mLocationAdapter = new LocationAdapter(getContext(), data, mLocationClickListener);
     }
 
     @Override
@@ -96,7 +94,7 @@ public class ListContentFragment extends MvpLceFragment<SwipeRefreshLayout, Real
         contentView.setRefreshing(false);
     }
 
-    private LocationAdapter.LocationClickListener mLocationClicklistener = locationId -> {
+    private LocationAdapter.LocationClickListener mLocationClickListener = locationId -> {
         startActivity(new Intent(getActivity(),
                 LocationDetailsActivity.class).putExtra(LocationDetailsActivity.LOCATION_ID_ATTR, locationId));
     };

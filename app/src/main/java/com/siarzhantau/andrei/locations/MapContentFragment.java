@@ -29,7 +29,6 @@ import com.siarzhantau.andrei.locations.mvp.LocationsMapView;
 import com.siarzhantau.andrei.locations.utils.LocationsUtil;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import io.realm.RealmResults;
 
@@ -128,7 +127,7 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
         builder.setView(input);
         builder.setPositiveButton(R.string.button_ok, (dialog, which) -> {
             final String name = input.getText().toString();
-            final String id = UUID.randomUUID().toString();
+            final String id = presenter.createNewLocation(name, point);
 
             Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(point)
@@ -137,7 +136,6 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
 
             mMarkers.put(marker.getId(), id);
 
-            presenter.createNewLocation(point, name, id);
             dialog.dismiss();
         });
         builder.setNegativeButton(R.string.button_cancel, (dialog, which) -> dialog.dismiss());
@@ -149,8 +147,9 @@ public class MapContentFragment extends MvpFragment<LocationsMapView, LocationsM
             Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.lat, location.lng))
                     .title(location.name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(location.custom
+                    .icon(BitmapDescriptorFactory.defaultMarker(location.isCustom
                            ? BitmapDescriptorFactory.HUE_BLUE : BitmapDescriptorFactory.HUE_RED)));
+
             mMarkers.put(marker.getId(), location.id);
         }
     }

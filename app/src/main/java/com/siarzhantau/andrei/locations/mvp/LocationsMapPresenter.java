@@ -3,7 +3,6 @@ package com.siarzhantau.andrei.locations.mvp;
 import com.google.android.gms.maps.model.LatLng;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.siarzhantau.andrei.locations.model.Location;
-import com.siarzhantau.andrei.locations.utils.LocationsUtil;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -14,6 +13,7 @@ public class LocationsMapPresenter extends MvpBasePresenter<LocationsMapView> {
 
     private Realm mRealm;
     private RealmChangeListener mRealmChangeListener;
+
     @Override
     public void attachView(LocationsMapView view) {
         super.attachView(view);
@@ -45,16 +45,14 @@ public class LocationsMapPresenter extends MvpBasePresenter<LocationsMapView> {
         return locations;
     }
 
-    public void createNewLocation(LatLng point, String name, String id) {
+    public String createNewLocation(String name, LatLng point) {
+        final Location newLocation = new Location(name, point.latitude, point.longitude, true);
+
         mRealm.executeTransactionAsync(realm -> {
-            Location location = realm.createObject(Location.class, id);
-            location.name = name;
-            location.lat = point.latitude;
-            location.lng = point.longitude;
-            location.custom = true;
-            location.distance = LocationsUtil.calculateDistance(
-                    location.name, location.lat, location.lng);
+            realm.copyToRealm(newLocation);
         });
+
+        return newLocation.id;
     }
 
 }

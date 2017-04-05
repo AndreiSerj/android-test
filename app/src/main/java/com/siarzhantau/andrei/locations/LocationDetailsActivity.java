@@ -34,8 +34,7 @@ public class LocationDetailsActivity extends MvpActivity<LocationDetailsView, Lo
             finish();
         });
 
-        final Location location = presenter.getLocationById(locationId);
-        updateContent(location);
+        updateContent(presenter.getLocationById(locationId));
     }
 
     private void updateContent(Location location) {
