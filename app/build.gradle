@@ -33,7 +33,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.realm:realm-gradle-plugin:2.3.0"
+        classpath "io.realm:realm-gradle-plugin:3.0.0"
         classpath 'me.tatarka:gradle-retrolambda:3.3.0'
         // use custom version of lombok library to be able to use lint
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
@@ -76,6 +76,8 @@ dependencies {
     testCompile "org.powermock:powermock-module-junit4-rule:1.6.4"
     testCompile "org.powermock:powermock-api-mockito:1.6.4"
     testCompile "org.powermock:powermock-classloading-xstream:1.6.4"
+
+    testCompile 'com.github.juanmendez:Mocking-Realm:master-SNAPSHOT'
 
     testCompile 'junit:junit:4.12'
 }
