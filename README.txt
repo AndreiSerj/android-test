@@ -20,3 +20,5 @@ This new location is saved in persisted storage.
 
 6. Tap on location marker shows the info toast which is clickable. 
 Click on info toast redirect to the details screen.
+
+Task execution time: 6+ h (dev) + 1+ h(tests)
