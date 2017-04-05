@@ -1,7 +1,15 @@
-1. The app based on MVP pattern (Mosby)
-2. The app uses Realm.io as a persistence layer
-3. List of locations is sorted by distance (relativly to Sydney)
-4. Map: Default markers are RED, custom are BLUE.
+Android app specific assumptions: 
+- min sdk: 21
+- target sdk: 25
+- target device: smartphone 
+- screen orientation: portrait, landscape
+- programming language: java
+
+Architecture app specific assumptions: 
+- the app based on MVP pattern (Mosby)
+- the app uses Realm.io as a persistence layer
+- list of locations is sorted by distance (relativly to Sydney)
+- map: default markers are in RED, custom are in BLUE.
 
 How to:
 1. On the very first start a splash screen appears and the app reads the locations.json, parses it and populates the realm-based storage with the default locations.
